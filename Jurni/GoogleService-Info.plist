@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>442753947915-jskkf13kuqhg76bjq6gcrcnjm1rgie1n.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.442753947915-jskkf13kuqhg76bjq6gcrcnjm1rgie1n</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA5kr0YHuxupQgpaKuSvfMW5CkRZ0RAWqU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>442753947915</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>toolboxos.jurni</string>
+	<key>PROJECT_ID</key>
+	<string>jurni-dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>jurni-dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:442753947915:ios:21c7b7502262ec761b2a0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://jurni-dev-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
