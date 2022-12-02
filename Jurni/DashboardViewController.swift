@@ -14,14 +14,9 @@ class DashboardViewController: UIViewController{
     private var sideMenuRevealWidth: CGFloat = 260
     private let paddingForRotation: CGFloat = 150
     private var isExpanded: Bool = false
-    
-    // Expand/Collapse the side menu by changing trailing's constant
     private var sideMenuTrailingConstraint: NSLayoutConstraint!
-    
     private var revealSideMenuOnTop: Bool = true
-    
     private var sideMenuShadowView: UIView!
-    
     private var draggingIsEnabled: Bool = false
     private var panBaseLocation: CGFloat = 0.0
     
@@ -53,12 +48,10 @@ class DashboardViewController: UIViewController{
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         self.sideMenuViewController = storyboard.instantiateViewController(withIdentifier: "SideMenuID") as? SlideMenuViewController
        // self.sideMenuViewController.defaultHighlightedCell = 0 // Default Highlighted Cell
-       // self.sideMenuViewController.delegate = self
+        self.sideMenuViewController.sideMenuDelegate = self
         view.insertSubview(self.sideMenuViewController!.view, at: self.revealSideMenuOnTop ? 2 : 0)
         addChild(self.sideMenuViewController!)
         self.sideMenuViewController!.didMove(toParent: self)
-        
-        // Side Menu AutoLayout
         
         self.sideMenuViewController.view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -72,10 +65,6 @@ class DashboardViewController: UIViewController{
             self.sideMenuViewController.view.topAnchor.constraint(equalTo: view.topAnchor)
         ])
         
-        // ...
-        
-        
-        // Default Main View Controller
         showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
     }
 }
@@ -84,8 +73,15 @@ extension DashboardViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
         switch row {
         case 0:
-            // Home
             self.showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
+        
+        case 1: self.showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
+            
+        case 2: self.showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
+            
+        case 3: self.showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
+        
+        case 4: self.showViewController(viewController: UINavigationController.self, storyboardId: "SettingsID")
             
         default:
             break
@@ -103,7 +99,7 @@ extension DashboardViewController: SideMenuViewControllerDelegate {
             }
         }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: storyboardId) as! T
+        let vc = storyboard.instantiateViewController(withIdentifier: storyboardId)
         vc.view.tag = 99
         view.insertSubview(vc.view, at: self.revealSideMenuOnTop ? 0 : 1)
         addChild(vc)

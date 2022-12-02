@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+class Constants{
+    
+    let LOGIN_STATUS = "login_status"
+    
+}

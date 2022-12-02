@@ -15,12 +15,12 @@
 		A3E832692924B0E500A3806E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3E832672924B0E500A3806E /* LaunchScreen.storyboard */; };
 		B809EEAD2934DC0C006EB46D /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEAC2934DC0C006EB46D /* SplashViewController.swift */; };
 		B809EEB32934DF73006EB46D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B809EEAE2934DF73006EB46D /* GoogleService-Info.plist */; };
-		B809EEB42934DF73006EB46D /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEAF2934DF73006EB46D /* Utils.swift */; };
 		B809EEB52934DF73006EB46D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB02934DF73006EB46D /* DashboardViewController.swift */; };
 		B809EEB62934DF73006EB46D /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB12934DF73006EB46D /* ResetViewController.swift */; };
 		B809EEB72934DF73006EB46D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB22934DF73006EB46D /* Constants.swift */; };
 		B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89969452936088100E89EF6 /* SlideMenuViewController.swift */; };
 		B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694729360D3700E89EF6 /* HomeViewController.swift */; };
+		B899694A29366A6C00E89EF6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694929366A6C00E89EF6 /* SettingsViewController.swift */; };
 		B8CB25EA2935254A00956ED5 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = B8CB25E92935254A00956ED5 /* FirebaseAppCheck */; };
 		B8CB25EC2935254A00956ED5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B8CB25EB2935254A00956ED5 /* FirebaseAuth */; };
 		B8CB25EE2935254A00956ED5 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = B8CB25ED2935254A00956ED5 /* FirebaseAuthCombine-Community */; };
@@ -40,12 +40,12 @@
 		A3E8326A2924B0E500A3806E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B809EEAC2934DC0C006EB46D /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		B809EEAE2934DF73006EB46D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B809EEAF2934DF73006EB46D /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B809EEB02934DF73006EB46D /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		B809EEB12934DF73006EB46D /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		B809EEB22934DF73006EB46D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B89969452936088100E89EF6 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		B899694729360D3700E89EF6 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B899694929366A6C00E89EF6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,6 @@
 				B809EEB02934DF73006EB46D /* DashboardViewController.swift */,
 				B809EEAE2934DF73006EB46D /* GoogleService-Info.plist */,
 				B809EEB12934DF73006EB46D /* ResetViewController.swift */,
-				B809EEAF2934DF73006EB46D /* Utils.swift */,
 				B809EEAC2934DC0C006EB46D /* SplashViewController.swift */,
 				A3E8325C2924B0E300A3806E /* AppDelegate.swift */,
 				A3E8325E2924B0E300A3806E /* SceneDelegate.swift */,
@@ -99,6 +98,7 @@
 				A3E8326A2924B0E500A3806E /* Info.plist */,
 				B89969452936088100E89EF6 /* SlideMenuViewController.swift */,
 				B899694729360D3700E89EF6 /* HomeViewController.swift */,
+				B899694929366A6C00E89EF6 /* SettingsViewController.swift */,
 			);
 			path = Jurni;
 			sourceTree = "<group>";
@@ -185,10 +185,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B809EEB42934DF73006EB46D /* Utils.swift in Sources */,
 				B809EEB52934DF73006EB46D /* DashboardViewController.swift in Sources */,
 				A3E832612924B0E300A3806E /* ViewController.swift in Sources */,
 				A3E8325D2924B0E300A3806E /* AppDelegate.swift in Sources */,
+				B899694A29366A6C00E89EF6 /* SettingsViewController.swift in Sources */,
 				B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */,
 				B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */,
 				A3E8325F2924B0E300A3806E /* SceneDelegate.swift in Sources */,
@@ -342,6 +342,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AWRFVJ9H35;
 				INFOPLIST_FILE = Jurni/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -360,6 +361,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AWRFVJ9H35;
 				INFOPLIST_FILE = Jurni/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

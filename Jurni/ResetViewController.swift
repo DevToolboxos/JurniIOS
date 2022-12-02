@@ -9,9 +9,14 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
-class ResetViewController : UIViewController{
+class ResetViewController : UIViewController,UITextFieldDelegate{
     
     @IBOutlet weak var emailTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        emailTextField.delegate = self
+    }
     
     @IBAction func resetPasswordAction(_ sender: Any) {
         let email : String = emailTextField.text ?? ""
@@ -53,4 +58,8 @@ class ResetViewController : UIViewController{
         self.dismiss(animated: true, completion: nil)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
