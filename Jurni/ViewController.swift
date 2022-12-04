@@ -28,7 +28,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         if(!email.isEmpty && !password.isEmpty){
             login(email: email, password: password)
         }else{
-          // showAlert(message: "Enter both Email and Password")
+           //showAlert(message: "Enter both Email and Password")
             self.performSegue(withIdentifier: "dashboardSegue", sender: nil)
         }
     }
@@ -38,6 +38,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
             if(authResult == nil){
                 self!.showAlert(message: "Enter valid Email and Password")
             }else{
+                UserDefaults.standard.set(true, forKey: Constants.LOGIN_STATUS)
                 self!.performSegue(withIdentifier: "dashboardSegue", sender: nil)
             }
         }

@@ -26,6 +26,7 @@ class SlideMenuViewController : UIViewController{
         settingsImageView.addGestureRecognizer(pictureTap)
         settingsImageView.isUserInteractionEnabled = true
         
+        self.userNameLabel.text = UserDefaults.standard.string(forKey: Constants.FIRST_NAME)
         
     }
     

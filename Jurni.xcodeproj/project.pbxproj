@@ -18,6 +18,7 @@
 		B809EEB52934DF73006EB46D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB02934DF73006EB46D /* DashboardViewController.swift */; };
 		B809EEB62934DF73006EB46D /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB12934DF73006EB46D /* ResetViewController.swift */; };
 		B809EEB72934DF73006EB46D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB22934DF73006EB46D /* Constants.swift */; };
+		B8480ED0293A847900B457A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B8480ECF293A847900B457A9 /* FirebaseDatabase */; };
 		B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89969452936088100E89EF6 /* SlideMenuViewController.swift */; };
 		B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694729360D3700E89EF6 /* HomeViewController.swift */; };
 		B899694A29366A6C00E89EF6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694929366A6C00E89EF6 /* SettingsViewController.swift */; };
@@ -58,6 +59,7 @@
 				B8CB25F02935254A00956ED5 /* FirebaseFirestore in Frameworks */,
 				B8CB25F62935254A00956ED5 /* FirebaseStorage in Frameworks */,
 				B8CB25EE2935254A00956ED5 /* FirebaseAuthCombine-Community in Frameworks */,
+				B8480ED0293A847900B457A9 /* FirebaseDatabase in Frameworks */,
 				B8CB25EC2935254A00956ED5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +72,7 @@
 			children = (
 				A3E8325B2924B0E300A3806E /* Jurni */,
 				A3E8325A2924B0E300A3806E /* Products */,
+				B8480ECE293A847900B457A9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +106,13 @@
 			path = Jurni;
 			sourceTree = "<group>";
 		};
+		B8480ECE293A847900B457A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -126,6 +136,7 @@
 				B8CB25EF2935254A00956ED5 /* FirebaseFirestore */,
 				B8CB25F12935254A00956ED5 /* FirebaseFirestoreSwift */,
 				B8CB25F52935254A00956ED5 /* FirebaseStorage */,
+				B8480ECF293A847900B457A9 /* FirebaseDatabase */,
 			);
 			productName = Jurni;
 			productReference = A3E832592924B0E300A3806E /* Jurni.app */;
@@ -409,6 +420,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B8480ECF293A847900B457A9 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8CB25E82935254A00956ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
 		B8CB25E92935254A00956ED5 /* FirebaseAppCheck */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B8CB25E82935254A00956ED5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

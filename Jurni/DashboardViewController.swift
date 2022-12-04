@@ -26,7 +26,7 @@ class DashboardViewController: UIViewController{
     
     override func viewDidLoad() {
         
-        self.view.backgroundColor = #colorLiteral(red: 0, green: 0.375862439, blue: 1, alpha: 1)
+      //  self.view.backgroundColor = #colorLiteral(red: 0, green: 0.375862439, blue: 1, alpha: 1)
         // Side Menu Gestures
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGestureRecognizer.delegate = self
@@ -81,7 +81,8 @@ extension DashboardViewController: SideMenuViewControllerDelegate {
             
         case 3: self.showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
         
-        case 4: self.showViewController(viewController: UINavigationController.self, storyboardId: "SettingsID")
+        case 4: self.performSegue(withIdentifier: "settingSegue", sender: nil)
+           // self.showViewController(viewController: UINavigationController.self, storyboardId: "SettingsID")
             
         default:
             break

@@ -9,6 +9,13 @@ import Foundation
 
 class Constants{
     
-    let LOGIN_STATUS = "login_status"
+    static let LOGIN_STATUS = "login_status"
+    static let FIRST_NAME = "first_name"
+    static let LAST_NAME = "last_name"
+    static let PHONE_NUMBER = "phone_number"
+    static let PROFILE_PIC = "profile_pic"
+    static let HOBBIES = "hobbies"
+    static let JOB_TITLE = "job_title"
+    static let EMAIL = "email"
     
 }
