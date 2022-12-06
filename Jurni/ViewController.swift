@@ -29,7 +29,6 @@ class ViewController: UIViewController,UITextFieldDelegate {
             login(email: email, password: password)
         }else{
            showAlert(message: "Enter both Email and Password")
-           // self.performSegue(withIdentifier: "dashboardSegue", sender: nil)
         }
     }
     

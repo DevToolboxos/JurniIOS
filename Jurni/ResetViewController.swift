@@ -16,6 +16,9 @@ class ResetViewController : UIViewController,UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
     }
     
     @IBAction func resetPasswordAction(_ sender: Any) {
