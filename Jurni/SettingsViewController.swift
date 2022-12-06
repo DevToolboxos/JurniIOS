@@ -57,34 +57,70 @@ class SettingsViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func backArrowAction(_ sender: Any) {
-        print("back button")
         self.dismiss(animated: true, completion: nil)
-       // self.navigationController?.popViewController(animated: false)
-        
     }
     
     @IBAction func accountAction(_ sender: Any) {
-      //  self.accountBtn.backgroundColor = UIColor(patternImage: UIImage(named: "settingwhitebg.png")!)
-      //  self.paymentBtn.backgroundColor = UIColor(patternImage: UIImage(named: "settingwhiteborder.png")!)
-      //  self.onboardingBtn.backgroundColor = UIColor(patternImage: UIImage(named: "settingwhiteborder.png")!)
+        self.accountBtn.setImage(UIImage(named: "settingwhitebg.png"), for: .normal)
+        self.paymentBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+        self.onboardingBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+
+        self.accountImageView.image = UIImage(named: "account.png")
+        self.paymentImageView.image = UIImage(named: "paymentswhite.png")
+        self.onboardingImageView.image = UIImage(named: "onboardwhite.png")
         
-        
+        self.accountLabel.textColor = UIColor(red: 0.061, green: 0.088, blue: 0.107, alpha: 1.0)
+        self.paymentLabel.textColor = UIColor.white
+        self.onboardingLabel.textColor = UIColor.white
+    
     }
     
     @IBAction func paymentAction(_ sender: Any) {
-    
+        self.accountBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+        self.paymentBtn.setImage(UIImage(named: "settingwhitebg.png"), for: .normal)
+        self.onboardingBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+
+        self.accountImageView.image = UIImage(named: "accountswhite.png")
+        self.paymentImageView.image = UIImage(named: "payments.png")
+        self.onboardingImageView.image = UIImage(named: "onboardwhite.png")
+        
+        self.accountLabel.textColor = UIColor.white
+        self.paymentLabel.textColor = UIColor(red: 0.061, green: 0.088, blue: 0.107, alpha: 1.0)
+        self.onboardingLabel.textColor = UIColor.white
         
     }
     
     @IBAction func onboardingAction(_ sender: Any) {
+        self.accountBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+        self.paymentBtn.setImage(UIImage(named: "settingwhiteborder.png"), for: .normal)
+        self.onboardingBtn.setImage(UIImage(named: "settingwhitebg.png"), for: .normal)
+   
+        self.accountImageView.image = UIImage(named: "accountswhite.png")
+        self.paymentImageView.image = UIImage(named: "paymentswhite.png")
+        self.onboardingImageView.image = UIImage(named: "onboard.png")
         
+        self.accountLabel.textColor = UIColor.white
+        self.paymentLabel.textColor = UIColor.white
+        self.onboardingLabel.textColor = UIColor(red: 0.061, green: 0.088, blue: 0.107, alpha: 1.0)
     }
     
     @IBAction func saveAction(_ sender: Any) {
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    
+    @IBAction func logoutAction(_ sender: Any) {        
+        let defaults = UserDefaults.standard
+            let dictionary = defaults.dictionaryRepresentation()
+            dictionary.keys.forEach { key in
+                defaults.removeObject(forKey: key)
+            }
+        
+        self.performSegue(withIdentifier: "logoutSegue", sender: nil)
     }
 }

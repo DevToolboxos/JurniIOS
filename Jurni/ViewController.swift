@@ -28,8 +28,8 @@ class ViewController: UIViewController,UITextFieldDelegate {
         if(!email.isEmpty && !password.isEmpty){
             login(email: email, password: password)
         }else{
-           //showAlert(message: "Enter both Email and Password")
-            self.performSegue(withIdentifier: "dashboardSegue", sender: nil)
+           showAlert(message: "Enter both Email and Password")
+           // self.performSegue(withIdentifier: "dashboardSegue", sender: nil)
         }
     }
     
@@ -39,7 +39,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 self!.showAlert(message: "Enter valid Email and Password")
             }else{
                 UserDefaults.standard.set(true, forKey: Constants.LOGIN_STATUS)
-                self!.performSegue(withIdentifier: "dashboardSegue", sender: nil)
+                self!.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         }
     }
