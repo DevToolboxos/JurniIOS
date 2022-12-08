@@ -18,6 +18,8 @@
 		B809EEB52934DF73006EB46D /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB02934DF73006EB46D /* DashboardViewController.swift */; };
 		B809EEB62934DF73006EB46D /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB12934DF73006EB46D /* ResetViewController.swift */; };
 		B809EEB72934DF73006EB46D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB22934DF73006EB46D /* Constants.swift */; };
+		B80B856F2941CDBB00199686 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */; };
+		B80B85712941CDEA00199686 /* PaymentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */; };
 		B8480ED0293A847900B457A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B8480ECF293A847900B457A9 /* FirebaseDatabase */; };
 		B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89969452936088100E89EF6 /* SlideMenuViewController.swift */; };
 		B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694729360D3700E89EF6 /* HomeViewController.swift */; };
@@ -44,6 +46,8 @@
 		B809EEB02934DF73006EB46D /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		B809EEB12934DF73006EB46D /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 		B809EEB22934DF73006EB46D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
+		B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsViewController.swift; sourceTree = "<group>"; };
 		B89969452936088100E89EF6 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		B899694729360D3700E89EF6 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B899694929366A6C00E89EF6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				B89969452936088100E89EF6 /* SlideMenuViewController.swift */,
 				B899694729360D3700E89EF6 /* HomeViewController.swift */,
 				B899694929366A6C00E89EF6 /* SettingsViewController.swift */,
+				B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */,
+				B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */,
 			);
 			path = Jurni;
 			sourceTree = "<group>";
@@ -200,9 +206,11 @@
 				A3E832612924B0E300A3806E /* ViewController.swift in Sources */,
 				A3E8325D2924B0E300A3806E /* AppDelegate.swift in Sources */,
 				B899694A29366A6C00E89EF6 /* SettingsViewController.swift in Sources */,
+				B80B85712941CDEA00199686 /* PaymentDetailsViewController.swift in Sources */,
 				B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */,
 				B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */,
 				A3E8325F2924B0E300A3806E /* SceneDelegate.swift in Sources */,
+				B80B856F2941CDBB00199686 /* ContactDetailsViewController.swift in Sources */,
 				B809EEB62934DF73006EB46D /* ResetViewController.swift in Sources */,
 				B809EEAD2934DC0C006EB46D /* SplashViewController.swift in Sources */,
 				B809EEB72934DF73006EB46D /* Constants.swift in Sources */,
