@@ -15,7 +15,7 @@ class PaymentDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-      //  scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: 2000)
+      
 
     }
     
