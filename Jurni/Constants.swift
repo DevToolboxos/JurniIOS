@@ -17,5 +17,5 @@ class Constants{
     static let HOBBIES = "hobbies"
     static let JOB_TITLE = "job_title"
     static let EMAIL = "email"
-    
+    static let COMMUNITY_ID = "community_id"
 }

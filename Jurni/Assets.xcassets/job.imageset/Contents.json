@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "job 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "job 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

@@ -12,6 +12,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    var activityView: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +27,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         let email : String = emailTextField.text ?? ""
         let password : String = passwordTextField.text ?? ""
         if(!email.isEmpty && !password.isEmpty){
+            showActivityIndicator()
             login(email: email, password: password)
         }else{
            showAlert(message: "Enter both Email and Password")
@@ -34,6 +36,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
     
     func login(email: String, password:String){
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            self?.hideActivityIndicator()
             if(authResult == nil){
                 self!.showAlert(message: "Enter valid Email and Password")
             }else{
@@ -54,5 +57,17 @@ class ViewController: UIViewController,UITextFieldDelegate {
         return true
     }
     
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
+    }
 }
 

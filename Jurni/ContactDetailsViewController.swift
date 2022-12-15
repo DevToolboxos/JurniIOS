@@ -23,6 +23,8 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var newPwdTextField: UITextField!
     @IBOutlet weak var saveAccountChangsButton: UIButton!
     
+    var activityView: UIActivityIndicatorView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,15 +44,18 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
        
     }
     
+    //LS6a9uHqymOEVENwJtLLpHIGqKv2
+   // fuxzUxiqrF4Xl8KS71jy
     func fetchUserData(){
+        showActivityIndicator()
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
         let userId : String = Auth.auth().currentUser!.uid
         let docRef = defaultStore?.collection("users").document(userId)
         docRef!.getDocument { (document, error) in
+            self.hideActivityIndicator()
             if let document = document, document.exists {
                 let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                
                 let firstName = document.get("firstName") as? String
                 if(firstName != nil){
                     UserDefaults.standard.set(firstName, forKey: Constants.FIRST_NAME)
@@ -86,6 +91,11 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
                     UserDefaults.standard.set(hobbies, forKey: Constants.HOBBIES)
                 }
                 
+                let communityId = document.get("activeCommunityId")
+                if(communityId != nil){
+                    UserDefaults.standard.set(communityId, forKey: Constants.COMMUNITY_ID)
+                }
+                
                 self.setUserData()
                 
             } else {
@@ -112,6 +122,7 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func saveAction(_ sender: Any) {
+        showActivityIndicator()
         let firstName : String = firstNameTextField.text ?? ""
         let lastName : String = lastNameTextField.text ?? ""
         let email: String = emailTextField.text ?? ""
@@ -137,6 +148,7 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
         let userId : String = Auth.auth().currentUser!.uid
         let docRef = defaultStore?.collection("users").document(userId)
         docRef?.setData(userData){ err in
+            self.hideActivityIndicator()
             if let err = err {
                 self.showAlert(message: "Error updating Profile. Try again.")
             } else {
@@ -149,6 +161,19 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
         let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
     }
     
 }

@@ -12,6 +12,7 @@ import FirebaseAuth
 class ResetViewController : UIViewController,UITextFieldDelegate{
     
     @IBOutlet weak var emailTextField: UITextField!
+    var activityView: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class ResetViewController : UIViewController,UITextFieldDelegate{
         let email : String = emailTextField.text ?? ""
         
         if(!email.isEmpty){
+            showActivityIndicator()
             sendResetPasswordLink(email: email)
         }else{
            showAlert(message: "Enter Email")
@@ -33,6 +35,7 @@ class ResetViewController : UIViewController,UITextFieldDelegate{
     
     func sendResetPasswordLink(email: String){
         Auth.auth().sendPasswordReset(withEmail: email) { error in
+            self.hideActivityIndicator()
             if(error == nil){
                 self.showPasswordResetLinkAlert(message: "Password reset link sent to your email")
             }else{
@@ -64,5 +67,18 @@ class ResetViewController : UIViewController,UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
     }
 }

@@ -26,11 +26,14 @@ class SettingsViewController: UIViewController {
     
     @IBOutlet weak var containerView: UIView!
     
+    let CONTACT_TAB = "Contact"
+    let PAYMENT_TAB = "Payment"
+    let ONBOARDING_TAB = "Onboarding"
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        addContactDetailsViewController()
+        addViewController(type: CONTACT_TAB)
     }
     
     @IBAction func backArrowAction(_ sender: Any) {
@@ -52,8 +55,9 @@ class SettingsViewController: UIViewController {
         
         titleLabel.text = "Contact Details"
         
-        removePaymentDetailsViewController()
-        addContactDetailsViewController()
+        removeViewController(type: PAYMENT_TAB)
+        removeViewController(type: ONBOARDING_TAB)
+        addViewController(type: CONTACT_TAB)
             
     }
     
@@ -72,8 +76,9 @@ class SettingsViewController: UIViewController {
                 
         titleLabel.text = "Billing Information"
         
-        removeContactDetailsViewController()
-        addPaymentDetailsViewController()
+        removeViewController(type: CONTACT_TAB)
+        removeViewController(type: ONBOARDING_TAB)
+        addViewController(type: PAYMENT_TAB)
     }
     
     @IBAction func onboardingAction(_ sender: Any) {
@@ -90,6 +95,10 @@ class SettingsViewController: UIViewController {
         self.onboardingLabel.textColor = UIColor(red: 0.061, green: 0.088, blue: 0.107, alpha: 1.0)
         
         titleLabel.text = ""
+        
+        removeViewController(type: CONTACT_TAB)
+        removeViewController(type: PAYMENT_TAB)
+        addViewController(type: ONBOARDING_TAB)
     }
     
   
@@ -102,38 +111,46 @@ class SettingsViewController: UIViewController {
         
         self.performSegue(withIdentifier: "logoutSegue", sender: nil)
     }
-    
-
-    
-    func addContactDetailsViewController(){
-        if let contactDetailsViewController = self.storyboard?.instantiateViewController(identifier: "contactDetailsID") as? ContactDetailsViewController {
-            
-            addChild(contactDetailsViewController)
-            containerView.addSubview(contactDetailsViewController.view)
         
-        }
-    }
-    
-    func addPaymentDetailsViewController(){
-        if let paymentDetailsViewController = self.storyboard?.instantiateViewController(identifier: "paymentDetailsID") as? PaymentDetailsViewController {
+    func addViewController(type: String){
+        if(type == CONTACT_TAB){
+            if let contactDetailsViewController = self.storyboard?.instantiateViewController(identifier: "contactDetailsID") as? ContactDetailsViewController {
+                
+                addChild(contactDetailsViewController)
+                containerView.addSubview(contactDetailsViewController.view)
             
-            addChild(paymentDetailsViewController)
-            containerView.addSubview(paymentDetailsViewController.view)
-        
+            }
+        }else if(type == PAYMENT_TAB){
+            if let paymentDetailsViewController = self.storyboard?.instantiateViewController(identifier: "paymentDetailsID") as? PaymentDetailsViewController {
+                
+                addChild(paymentDetailsViewController)
+                containerView.addSubview(paymentDetailsViewController.view)
+            }
+        }else if(type == ONBOARDING_TAB){
+            if let onboardingViewController = self.storyboard?.instantiateViewController(identifier: "onboardingID") as? OnboardingResponseViewController {
+                
+                addChild(onboardingViewController)
+                containerView.addSubview(onboardingViewController.view)
+            }
         }
     }
     
-    func removeContactDetailsViewController(){
-        if let contactDetailsViewController = self.storyboard?.instantiateViewController(identifier: "contactDetailsID") as? ContactDetailsViewController {
-            contactDetailsViewController.view.removeFromSuperview()
-            contactDetailsViewController.removeFromParent()
-        }
-    }
-    
-    func removePaymentDetailsViewController(){
-        if let paymentDetailsViewController = self.storyboard?.instantiateViewController(identifier: "paymentDetailsID") as? PaymentDetailsViewController {
-            paymentDetailsViewController.view.removeFromSuperview()
-            paymentDetailsViewController.removeFromParent()
+    func removeViewController(type: String){
+        if(type == CONTACT_TAB){
+            if let contactDetailsViewController = self.storyboard?.instantiateViewController(identifier: "contactDetailsID") as? ContactDetailsViewController {
+                contactDetailsViewController.view.removeFromSuperview()
+                contactDetailsViewController.removeFromParent()
+            }
+        }else if(type == PAYMENT_TAB){
+            if let paymentDetailsViewController = self.storyboard?.instantiateViewController(identifier: "paymentDetailsID") as? PaymentDetailsViewController {
+                paymentDetailsViewController.view.removeFromSuperview()
+                paymentDetailsViewController.removeFromParent()
+            }
+        }else if(type == ONBOARDING_TAB){
+            if let onboradingViewController = self.storyboard?.instantiateViewController(identifier: "onboardingID") as? OnboardingResponseViewController {
+                onboradingViewController.view.removeFromSuperview()
+                onboradingViewController.removeFromParent()
+            }
         }
     }
 }
