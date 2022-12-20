@@ -52,10 +52,10 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
         defaultStore = Firestore.firestore()
         let userId : String = Auth.auth().currentUser!.uid
         let docRef = defaultStore?.collection("users").document(userId)
+        
         docRef!.getDocument { (document, error) in
             self.hideActivityIndicator()
             if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
                 let firstName = document.get("firstName") as? String
                 if(firstName != nil){
                     UserDefaults.standard.set(firstName, forKey: Constants.FIRST_NAME)
@@ -102,6 +102,9 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
                 print("Document does not exist")
             }
         }
+        
+        //LtYP6gNerjIeXNxqDqGV
+        //9QqGCrNWEt3tkXKdlcMxClone2
         
     }
     
