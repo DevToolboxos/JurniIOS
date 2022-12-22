@@ -13,7 +13,8 @@ import FirebaseFunctions
 import FirebaseCoreExtension
 import FirebaseMessagingInterop
 
-class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
+class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,
+                                        UITableViewDataSource {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var addUpdateView: UIView!
@@ -37,7 +38,16 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var paymentPlanLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var paymentPlanTableView: UITableView!
+    @IBOutlet weak var upcomingPaymentTableView: UITableView!
+    
     var paymentMethodsArray = [PaymentMethodBean]()
+    var paymentPlanArray = [PaymentPlan]()
+    var upcomingPaymentArray = [PaymentPlan]()
+    
+    @IBOutlet weak var paymentPlanTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var upcomingPaymentTableViewHeight: NSLayoutConstraint!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +61,16 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
         cvc.delegate = self
         expiryMonth.delegate = self
         expiryYear.delegate = self
+        
+        let paymentPlanNib = UINib(nibName: "PaymentPlanTableViewCell", bundle: nil)
+        paymentPlanTableView.register(paymentPlanNib, forCellReuseIdentifier: "PaymentPlanTableViewCell")
+        paymentPlanTableView.delegate = self
+        paymentPlanTableView.dataSource = self
+        
+        let upcomingPaymentNib = UINib(nibName: "UpcomingPaymentTableViewCell", bundle: nil)
+        upcomingPaymentTableView.register(upcomingPaymentNib, forCellReuseIdentifier: "UpcomingPaymentTableViewCell")
+        upcomingPaymentTableView.delegate = self
+        upcomingPaymentTableView.dataSource = self
         
         addPaymentView.isHidden = true
         
@@ -78,7 +98,8 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
                     self.paymentMethodsArray.removeAll()
                     var cardsArray = [String]()
                     for document in querySnapshot!.documents {
-                        if(document.get("status") as! String == "ACTIVE"){
+                       // if(document.get("status") as! String == "ACTIVE")
+                       // {
                             // print("\(document.documentID) => \(document.data())")
                             let paymentMethod : [String : Any] = document.data()["meta"] as! [String : Any]
                             
@@ -87,11 +108,11 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
                             let expMonth = "\(paymentMethod["exp_month"] ?? "")"
                             let expYear = "\(paymentMethod["exp_year"] ?? "")"
                             let lastFour = paymentMethod["last4"] as! String
-                            if(!cardsArray.contains(lastFour)){
+                           // if(!cardsArray.contains(lastFour)){
                                 cardsArray.append(lastFour)
                                 self.paymentMethodsArray.append(PaymentMethodBean(cardBrand: brand, expiryMonth: expMonth, expiryYear: expYear, lastFour: lastFour, country: country))
-                            }
-                        }
+                          //  }
+                     //   }
                     }
                     
                     if(self.paymentMethodsArray.isEmpty){
@@ -99,7 +120,6 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
                     }
                 }
             }
-        
     }
     
     func fetchStudentBillDetails(){
@@ -110,51 +130,74 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                var studentBillsIds = [String]()
-                var studentBillPayments = [StudentBillPayment]()
+                self.paymentPlanArray.removeAll()
+                var studentIds = [String]()
                 for document in querySnapshot!.documents {
                     let documentData : [String : Any] = document.data()
                     if(documentData["studentBillPayment"] != nil){
-                        print("Student billing =>")
-                        print("\(document.documentID) => \(document.data())")
                         let result: [String:Any] = documentData["studentBillPayment"] as! [String : Any]
                         for(key,value) in result{
-                            print("key: " + key)
-                            if(!studentBillsIds.contains(key)){
-                                studentBillsIds.append(key)
-                                print("value \(value as! NSArray)")
-                              //  let billDate = NSDate(timeIntervalSince1970: 23423253) as! String
-                               // studentBillPayments.append(StudentBillPayment(billingDate: "", cost: "5.0", name: ""))
+                            if(!studentIds.contains(key))
+                            {
+                                studentIds.append(key)
+                                let paymentDetailsArray = value as! NSArray
+                                if(paymentDetailsArray.count > 0){
+                                    let paymentDetailDict = paymentDetailsArray[0] as! [String : Any]
+                                    let cost = paymentDetailDict["cost"] as! NSNumber
+                                    let name = paymentDetailDict["name"] as! String
+                                    let stamp = (paymentDetailDict["billingDate"] as! Timestamp)
+                                    let date = stamp.dateValue().toString(dateFormat: "MMM dd,yyyy")
+                                
+                                    self.paymentPlanArray.append(PaymentPlan(billId: key, billingDate: date,
+                                                                              cost: "\(cost)", name: name, status: ""))
+                                }
                             }
                         }
                     }
                 }
-                if(!studentBillsIds.isEmpty){
-                    self.fetchStudentJurnis(studentIds: studentBillsIds)
+                if(!self.paymentPlanArray.isEmpty){
+                    self.fetchStudentJurnis()
                 }
             }
         }
-        
-       
     }
     
-    func fetchStudentJurnis(studentIds: [String]){
+    
+    func fetchStudentJurnis(){
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
-        let userId : String = Auth.auth().currentUser!.uid
         defaultStore?.collection("jurnis").getDocuments() { (querySnapshot, err) in
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                print("Jurnis :")
+                print("Student")
                 for document in querySnapshot!.documents {
-                    for(student) in studentIds{
-                        if(student == document.documentID){
-                            print("\(document.documentID) => \(document.data())")
-                            
+                    for(student) in self.paymentPlanArray{
+                        if(student.billId == document.documentID){
+                            print("\(document.documentID) ==> \(document.data())")
+                            let billingDetails : [String : Any] = document.data()["meta"] as! [String : Any]
+                            let billingType = billingDetails["billingType"] as! String
+                            if(billingType == "Upfront"){
+                                student.status = "One-Time"
+                            }else if(billingType == "Recurring"){
+                                student.status = "Monlthly Recurring"
+                            }else{
+                                student.status = "Free"
+                            }
                         }
                     }
                 }
+                let count = self.paymentPlanArray.count
+                self.paymentPlanTableViewHeight.constant = CGFloat(count * 150)
+                self.paymentPlanTableView.reloadData()
+                
+                for(paymentPlan) in self.paymentPlanArray{
+                    self.upcomingPaymentArray.append(paymentPlan)
+                }
+                
+                let upcomingCount = self.upcomingPaymentArray.count
+                self.upcomingPaymentTableViewHeight.constant = CGFloat(upcomingCount * 140)
+                self.upcomingPaymentTableView.reloadData()
             }
         }
     }
@@ -165,6 +208,7 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
         addUpdateView.isHidden = false
         addPaymentView.isHidden = true
     }
+    
     @IBAction func saveAction(_ sender: Any) {
         //https://us-central1-jurni-dev.cloudfunctions.net/registerCustomer
         
@@ -213,7 +257,60 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate {
         return true
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if tableView == paymentPlanTableView{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentPlanTableViewCell", for: indexPath)
+            as! PaymentPlanTableViewCell
+            
+            cell.transactionName.text = paymentPlanArray[indexPath.row].name
+            cell.status.text = paymentPlanArray[indexPath.row].status
+            cell.cost.text = "$\(paymentPlanArray[indexPath.row].cost)"
+            if(paymentPlanArray[indexPath.row].status == "Monlthly Recurring"){
+                cell.billingDate.text = "Subscribed \(paymentPlanArray[indexPath.row].billingDate)"
+                cell.action.text = "Cancel jurni"
+            }else{
+                cell.billingDate.text = "Paid \(paymentPlanArray[indexPath.row].billingDate)"
+                cell.action.text = "N/A"
+            }
+            
+            return cell
+        }else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingPaymentTableViewCell", for: indexPath)
+            as! UpcomingPaymentTableViewCell
+            
+            cell.tansactionName.text = upcomingPaymentArray[indexPath.row].name
+            cell.cost.text = "$\(upcomingPaymentArray[indexPath.row].cost)"
+            cell.upcomingBillingDate.text = upcomingPaymentArray[indexPath.row].billingDate
+            return cell
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == paymentPlanTableView{
+            return paymentPlanArray.count
+        }else {
+            return upcomingPaymentArray.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("clicked")
+    }
     
 }
+
+
+extension Date
+{
+    func toString( dateFormat format  : String ) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+
+}
+
 
 

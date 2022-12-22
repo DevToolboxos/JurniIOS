@@ -1122,7 +1122,7 @@
                                         <rect key="frame" x="8" y="0.0" width="367" height="1300"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ifS-iw-zxM">
-                                                <rect key="frame" x="8" y="10" width="367" height="660"/>
+                                                <rect key="frame" x="8" y="10" width="367" height="1268"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bn2-E5-8oW">
                                                         <rect key="frame" x="0.0" y="0.0" width="367" height="80"/>
@@ -1461,14 +1461,33 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Ka-lG-AyG">
-                                                        <rect key="frame" x="0.0" y="532" width="367" height="128"/>
+                                                        <rect key="frame" x="0.0" y="532" width="367" height="736"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3qB-jX-LrN">
-                                                                <rect key="frame" x="35" y="20" width="130" height="21"/>
+                                                                <rect key="frame" x="10" y="20" width="130" height="20.333333333333329"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="130" id="Sxa-XA-AV5"/>
-                                                                    <constraint firstAttribute="height" constant="21" id="e07-dd-DCD"/>
                                                                 </constraints>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                                <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="rqP-LT-7In">
+                                                                <rect key="frame" x="0.0" y="50.333333333333371" width="367" height="100"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="100" id="3sS-hf-eax"/>
+                                                                </constraints>
+                                                            </tableView>
+                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="770-NW-lbo">
+                                                                <rect key="frame" x="0.0" y="200.66666666666663" width="367" height="100"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="100" id="7NH-Ba-cZT"/>
+                                                                </constraints>
+                                                            </tableView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Payments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0O-mM-abF">
+                                                                <rect key="frame" x="10" y="170.33333333333337" width="168.33333333333334" height="20.333333333333343"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1476,8 +1495,16 @@
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
+                                                            <constraint firstItem="u0O-mM-abF" firstAttribute="top" secondItem="rqP-LT-7In" secondAttribute="bottom" constant="20" id="6bV-HK-Rsg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="770-NW-lbo" secondAttribute="trailing" id="Sfp-OA-g0Z"/>
+                                                            <constraint firstItem="rqP-LT-7In" firstAttribute="top" secondItem="3qB-jX-LrN" secondAttribute="bottom" constant="10" id="uUX-37-iN1"/>
+                                                            <constraint firstItem="u0O-mM-abF" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="10" id="ueG-cO-R63"/>
                                                             <constraint firstItem="3qB-jX-LrN" firstAttribute="top" secondItem="3Ka-lG-AyG" secondAttribute="top" constant="20" id="wcM-r1-sgn"/>
-                                                            <constraint firstItem="3qB-jX-LrN" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="35" id="zwL-E3-Ojs"/>
+                                                            <constraint firstItem="770-NW-lbo" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" id="wuQ-io-qrS"/>
+                                                            <constraint firstAttribute="trailing" secondItem="rqP-LT-7In" secondAttribute="trailing" id="x2C-1E-735"/>
+                                                            <constraint firstItem="770-NW-lbo" firstAttribute="top" secondItem="u0O-mM-abF" secondAttribute="bottom" constant="10" id="xkH-eC-Jgb"/>
+                                                            <constraint firstItem="rqP-LT-7In" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" id="z8T-xI-0hd"/>
+                                                            <constraint firstItem="3qB-jX-LrN" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="10" id="zwL-E3-Ojs"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1530,9 +1557,13 @@
                         <outlet property="expiryMonth" destination="dXr-pM-usc" id="TFP-ty-H9Q"/>
                         <outlet property="expiryYear" destination="J3f-oo-rPY" id="28f-SJ-Knd"/>
                         <outlet property="paymentPlanLabel" destination="3qB-jX-LrN" id="sEa-Ej-8cl"/>
+                        <outlet property="paymentPlanTableView" destination="rqP-LT-7In" id="eWf-eY-TXC"/>
+                        <outlet property="paymentPlanTableViewHeight" destination="3sS-hf-eax" id="GEp-Sv-MqW"/>
                         <outlet property="scrollView" destination="dIG-lD-cA3" id="bNS-uN-ham"/>
                         <outlet property="stackView" destination="ifS-iw-zxM" id="x09-6a-GFK"/>
                         <outlet property="state" destination="5rF-pL-aa2" id="BXE-ek-YpU"/>
+                        <outlet property="upcomingPaymentTableView" destination="770-NW-lbo" id="qAl-Xo-EBZ"/>
+                        <outlet property="upcomingPaymentTableViewHeight" destination="7NH-Ba-cZT" id="diZ-GL-zpG"/>
                         <outlet property="updatePaymentMethodButton" destination="ZNg-pu-Gk5" id="ald-24-KvP"/>
                         <outlet property="zipPostal" destination="phI-qg-GZc" id="Mv8-8Z-asn"/>
                     </connections>

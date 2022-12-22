@@ -20,13 +20,17 @@
 		B809EEB72934DF73006EB46D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B809EEB22934DF73006EB46D /* Constants.swift */; };
 		B80B856F2941CDBB00199686 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */; };
 		B80B85712941CDEA00199686 /* PaymentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */; };
-		B81D1C0C2951C8D00072F602 /* StudentBillPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81D1C0B2951C8D00072F602 /* StudentBillPayment.swift */; };
+		B81D1C0C2951C8D00072F602 /* PaymentPlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81D1C0B2951C8D00072F602 /* PaymentPlan.swift */; };
 		B81D1C112951E92C0072F602 /* UpdatePaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B81D1C0F2951E92C0072F602 /* UpdatePaymentTableViewCell.swift */; };
 		B81D1C122951E92C0072F602 /* UpdatePaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B81D1C102951E92C0072F602 /* UpdatePaymentTableViewCell.xib */; };
 		B825746C294F02E400F82957 /* UpdatePaymentPopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B825746B294F02E400F82957 /* UpdatePaymentPopUpViewController.swift */; };
 		B82650D129434B6B004784CE /* OnboardingResponseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82650D029434B6B004784CE /* OnboardingResponseViewController.swift */; };
 		B83F6B7D294CB09700CAC63F /* PaymentMethodBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83F6B7C294CB09700CAC63F /* PaymentMethodBean.swift */; };
 		B8480ED0293A847900B457A9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = B8480ECF293A847900B457A9 /* FirebaseDatabase */; };
+		B894C79C295362F8007728FE /* PaymentPlanTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894C79A295362F8007728FE /* PaymentPlanTableViewCell.swift */; };
+		B894C79D295362F8007728FE /* PaymentPlanTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B894C79B295362F8007728FE /* PaymentPlanTableViewCell.xib */; };
+		B894C7A1295385AC007728FE /* UpcomingPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894C79F295385AC007728FE /* UpcomingPaymentTableViewCell.swift */; };
+		B894C7A2295385AC007728FE /* UpcomingPaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B894C7A0295385AC007728FE /* UpcomingPaymentTableViewCell.xib */; };
 		B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89969452936088100E89EF6 /* SlideMenuViewController.swift */; };
 		B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694729360D3700E89EF6 /* HomeViewController.swift */; };
 		B899694A29366A6C00E89EF6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B899694929366A6C00E89EF6 /* SettingsViewController.swift */; };
@@ -55,12 +59,16 @@
 		B809EEB22934DF73006EB46D /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsViewController.swift; sourceTree = "<group>"; };
-		B81D1C0B2951C8D00072F602 /* StudentBillPayment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentBillPayment.swift; sourceTree = "<group>"; };
+		B81D1C0B2951C8D00072F602 /* PaymentPlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPlan.swift; sourceTree = "<group>"; };
 		B81D1C0F2951E92C0072F602 /* UpdatePaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePaymentTableViewCell.swift; sourceTree = "<group>"; };
 		B81D1C102951E92C0072F602 /* UpdatePaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePaymentTableViewCell.xib; sourceTree = "<group>"; };
 		B825746B294F02E400F82957 /* UpdatePaymentPopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePaymentPopUpViewController.swift; sourceTree = "<group>"; };
 		B82650D029434B6B004784CE /* OnboardingResponseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingResponseViewController.swift; sourceTree = "<group>"; };
 		B83F6B7C294CB09700CAC63F /* PaymentMethodBean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodBean.swift; sourceTree = "<group>"; };
+		B894C79A295362F8007728FE /* PaymentPlanTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentPlanTableViewCell.swift; sourceTree = "<group>"; };
+		B894C79B295362F8007728FE /* PaymentPlanTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentPlanTableViewCell.xib; sourceTree = "<group>"; };
+		B894C79F295385AC007728FE /* UpcomingPaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingPaymentTableViewCell.swift; sourceTree = "<group>"; };
+		B894C7A0295385AC007728FE /* UpcomingPaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingPaymentTableViewCell.xib; sourceTree = "<group>"; };
 		B89969452936088100E89EF6 /* SlideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenuViewController.swift; sourceTree = "<group>"; };
 		B899694729360D3700E89EF6 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B899694929366A6C00E89EF6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -142,15 +150,13 @@
 		B8257468294EFC5C00F82957 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				B894C79E29538585007728FE /* UpcomingPayment */,
+				B894C799295362DE007728FE /* PaymentPlan */,
+				B894C798295361DA007728FE /* UpdatePaymentMethod */,
 				B82650D029434B6B004784CE /* OnboardingResponseViewController.swift */,
-				B83F6B7C294CB09700CAC63F /* PaymentMethodBean.swift */,
 				B899694929366A6C00E89EF6 /* SettingsViewController.swift */,
 				B80B856E2941CDBB00199686 /* ContactDetailsViewController.swift */,
 				B80B85702941CDEA00199686 /* PaymentDetailsViewController.swift */,
-				B825746B294F02E400F82957 /* UpdatePaymentPopUpViewController.swift */,
-				B81D1C0B2951C8D00072F602 /* StudentBillPayment.swift */,
-				B81D1C0F2951E92C0072F602 /* UpdatePaymentTableViewCell.swift */,
-				B81D1C102951E92C0072F602 /* UpdatePaymentTableViewCell.xib */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -177,6 +183,36 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B894C798295361DA007728FE /* UpdatePaymentMethod */ = {
+			isa = PBXGroup;
+			children = (
+				B83F6B7C294CB09700CAC63F /* PaymentMethodBean.swift */,
+				B825746B294F02E400F82957 /* UpdatePaymentPopUpViewController.swift */,
+				B81D1C0F2951E92C0072F602 /* UpdatePaymentTableViewCell.swift */,
+				B81D1C102951E92C0072F602 /* UpdatePaymentTableViewCell.xib */,
+			);
+			path = UpdatePaymentMethod;
+			sourceTree = "<group>";
+		};
+		B894C799295362DE007728FE /* PaymentPlan */ = {
+			isa = PBXGroup;
+			children = (
+				B81D1C0B2951C8D00072F602 /* PaymentPlan.swift */,
+				B894C79A295362F8007728FE /* PaymentPlanTableViewCell.swift */,
+				B894C79B295362F8007728FE /* PaymentPlanTableViewCell.xib */,
+			);
+			path = PaymentPlan;
+			sourceTree = "<group>";
+		};
+		B894C79E29538585007728FE /* UpcomingPayment */ = {
+			isa = PBXGroup;
+			children = (
+				B894C79F295385AC007728FE /* UpcomingPaymentTableViewCell.swift */,
+				B894C7A0295385AC007728FE /* UpcomingPaymentTableViewCell.xib */,
+			);
+			path = UpcomingPayment;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +285,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B894C7A2295385AC007728FE /* UpcomingPaymentTableViewCell.xib in Resources */,
 				A3E832692924B0E500A3806E /* LaunchScreen.storyboard in Resources */,
 				B809EEB32934DF73006EB46D /* GoogleService-Info.plist in Resources */,
 				B81D1C122951E92C0072F602 /* UpdatePaymentTableViewCell.xib in Resources */,
+				B894C79D295362F8007728FE /* PaymentPlanTableViewCell.xib in Resources */,
 				A3E832662924B0E500A3806E /* Assets.xcassets in Resources */,
 				A3E832642924B0E300A3806E /* Main.storyboard in Resources */,
 			);
@@ -265,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B809EEB52934DF73006EB46D /* DashboardViewController.swift in Sources */,
+				B894C7A1295385AC007728FE /* UpcomingPaymentTableViewCell.swift in Sources */,
 				B83F6B7D294CB09700CAC63F /* PaymentMethodBean.swift in Sources */,
 				A3E832612924B0E300A3806E /* ViewController.swift in Sources */,
 				A3E8325D2924B0E300A3806E /* AppDelegate.swift in Sources */,
@@ -275,8 +314,9 @@
 				B89969462936088100E89EF6 /* SlideMenuViewController.swift in Sources */,
 				B899694829360D3700E89EF6 /* HomeViewController.swift in Sources */,
 				A3E8325F2924B0E300A3806E /* SceneDelegate.swift in Sources */,
+				B894C79C295362F8007728FE /* PaymentPlanTableViewCell.swift in Sources */,
 				B82650D129434B6B004784CE /* OnboardingResponseViewController.swift in Sources */,
-				B81D1C0C2951C8D00072F602 /* StudentBillPayment.swift in Sources */,
+				B81D1C0C2951C8D00072F602 /* PaymentPlan.swift in Sources */,
 				B80B856F2941CDBB00199686 /* ContactDetailsViewController.swift in Sources */,
 				B809EEB62934DF73006EB46D /* ResetViewController.swift in Sources */,
 				B809EEAD2934DC0C006EB46D /* SplashViewController.swift in Sources */,

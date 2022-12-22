@@ -7,15 +7,19 @@
 
 import UIKit
 
-class StudentBillPayment: NSObject {
+class PaymentPlan: NSObject {
+    var billId: String
     var billingDate: String
     var cost: String
     var name: String
+    var status: String
     
-    init(billingDate: String, cost: String, name: String) {
+    init(billId: String, billingDate: String, cost: String, name: String, status: String) {
+        self.billId = billId
         self.billingDate = billingDate
         self.cost = cost
         self.name = name
+        self.status = status
         
         super.init()
     }
