@@ -302,6 +302,7 @@
                     </navigationItem>
                     <connections>
                         <segue destination="mGO-1o-Pih" kind="showDetail" identifier="settingSegue" id="eEI-xo-1SX"/>
+                        <segue destination="BYZ-38-t0r" kind="showDetail" identifier="logoutSegue" id="85k-9v-N2I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Ub-sv-4zZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1492,11 +1493,31 @@
                                                                 <color key="textColor" red="0.23921568630000001" green="0.34509803919999998" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cancelbg" translatesAutoresizingMaskIntoConstraints="NO" id="Tjy-2S-xud">
+                                                                <rect key="frame" x="0.0" y="299" width="367" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="50" id="3V0-bG-JNt"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMU-jT-HHz">
+                                                                <rect key="frame" x="10" y="309" width="200" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="WeE-xY-GO4"/>
+                                                                    <constraint firstAttribute="width" constant="200" id="lEw-xA-a6g"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstItem="u0O-mM-abF" firstAttribute="top" secondItem="rqP-LT-7In" secondAttribute="bottom" constant="20" id="6bV-HK-Rsg"/>
+                                                            <constraint firstItem="Tjy-2S-xud" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" id="D2S-8Z-ekb"/>
+                                                            <constraint firstItem="Tjy-2S-xud" firstAttribute="top" secondItem="770-NW-lbo" secondAttribute="bottom" constant="-1.6666666666666288" id="OXb-7Y-aok"/>
+                                                            <constraint firstItem="LMU-jT-HHz" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="10" id="PZY-qP-2Ud"/>
                                                             <constraint firstAttribute="trailing" secondItem="770-NW-lbo" secondAttribute="trailing" id="Sfp-OA-g0Z"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Tjy-2S-xud" secondAttribute="trailing" id="fw9-vX-bKh"/>
                                                             <constraint firstItem="rqP-LT-7In" firstAttribute="top" secondItem="3qB-jX-LrN" secondAttribute="bottom" constant="10" id="uUX-37-iN1"/>
                                                             <constraint firstItem="u0O-mM-abF" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="10" id="ueG-cO-R63"/>
                                                             <constraint firstItem="3qB-jX-LrN" firstAttribute="top" secondItem="3Ka-lG-AyG" secondAttribute="top" constant="20" id="wcM-r1-sgn"/>
@@ -1504,6 +1525,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="rqP-LT-7In" secondAttribute="trailing" id="x2C-1E-735"/>
                                                             <constraint firstItem="770-NW-lbo" firstAttribute="top" secondItem="u0O-mM-abF" secondAttribute="bottom" constant="10" id="xkH-eC-Jgb"/>
                                                             <constraint firstItem="rqP-LT-7In" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" id="z8T-xI-0hd"/>
+                                                            <constraint firstItem="LMU-jT-HHz" firstAttribute="centerY" secondItem="Tjy-2S-xud" secondAttribute="centerY" id="zhK-sr-QqU"/>
                                                             <constraint firstItem="3qB-jX-LrN" firstAttribute="leading" secondItem="3Ka-lG-AyG" secondAttribute="leading" constant="10" id="zwL-E3-Ojs"/>
                                                         </constraints>
                                                     </view>
@@ -1562,6 +1584,7 @@
                         <outlet property="scrollView" destination="dIG-lD-cA3" id="bNS-uN-ham"/>
                         <outlet property="stackView" destination="ifS-iw-zxM" id="x09-6a-GFK"/>
                         <outlet property="state" destination="5rF-pL-aa2" id="BXE-ek-YpU"/>
+                        <outlet property="totalLabel" destination="LMU-jT-HHz" id="1IK-lf-Tgh"/>
                         <outlet property="upcomingPaymentTableView" destination="770-NW-lbo" id="qAl-Xo-EBZ"/>
                         <outlet property="upcomingPaymentTableViewHeight" destination="7NH-Ba-cZT" id="diZ-GL-zpG"/>
                         <outlet property="updatePaymentMethodButton" destination="ZNg-pu-Gk5" id="ald-24-KvP"/>
@@ -1638,7 +1661,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cRD-cX-usZ"/>
-        <segue reference="DsH-O5-CNI"/>
+        <segue reference="85k-9v-N2I"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="accemail" width="20" height="20"/>

@@ -6,24 +6,20 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var accountBtn: UIButton!
     @IBOutlet weak var accountImageView: UIImageView!
     @IBOutlet weak var accountLabel: UILabel!
-    
     @IBOutlet weak var paymentBtn: UIButton!
     @IBOutlet weak var paymentImageView: UIImageView!
     @IBOutlet weak var paymentLabel: UILabel!
-    
     @IBOutlet weak var onboardingBtn: UIButton!
     @IBOutlet weak var onboardingImageView: UIImageView!
     @IBOutlet weak var onboardingLabel: UILabel!
-    
-
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var containerView: UIView!
     
     let CONTACT_TAB = "Contact"
@@ -108,7 +104,7 @@ class SettingsViewController: UIViewController {
             dictionary.keys.forEach { key in
                 defaults.removeObject(forKey: key)
             }
-        
+        try! Auth.auth().signOut()
         self.performSegue(withIdentifier: "logoutSegue", sender: nil)
     }
         

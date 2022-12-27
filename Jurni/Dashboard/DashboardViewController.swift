@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class DashboardViewController: UIViewController{
     
@@ -66,6 +68,7 @@ class DashboardViewController: UIViewController{
         ])
         
         showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
+        fetchUserData()
     }
 }
 
@@ -275,5 +278,62 @@ extension DashboardViewController: UIGestureRecognizerDelegate {
         default:
             break
         }
+    }
+    
+    func fetchUserData(){
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        let userId : String = Auth.auth().currentUser!.uid
+        let docRef = defaultStore?.collection("users").document(userId)
+        
+        docRef!.getDocument { (document, error) in
+            if let document = document, document.exists {
+                
+                let communityId = document.get("activeCommunityId")
+                if(communityId != nil){
+                    self.checkStudentLoggedIn(communityId: communityId as! String)
+                }
+            }
+        }
+    }
+    
+    func checkStudentLoggedIn(communityId: String){
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        let userId : String = Auth.auth().currentUser!.uid
+        
+        if(!communityId.isEmpty){
+            print("userid \(userId)")
+            let docRef = defaultStore!.collection("communities").document(communityId)
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let roles = document.get("roles") as! [String:String]
+                    for (key,value) in roles{
+                        if(key == userId){
+                            print("found value \(value)")
+                            if(!(value == "student")){
+                                self.showLogoutAlert(message: "App is only for Students")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func showLogoutAlert(message: String){
+        let alert = UIAlertController(title: "Logout", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: handler))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func handler(alert: UIAlertAction!){
+        let defaults = UserDefaults.standard
+            let dictionary = defaults.dictionaryRepresentation()
+            dictionary.keys.forEach { key in
+                defaults.removeObject(forKey: key)
+            }
+        try! Auth.auth().signOut()
+        self.performSegue(withIdentifier: "logoutSegue", sender: nil)
     }
 }

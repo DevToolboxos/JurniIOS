@@ -44,8 +44,6 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
        
     }
     
-    //LS6a9uHqymOEVENwJtLLpHIGqKv2
-   // fuxzUxiqrF4Xl8KS71jy
     func fetchUserData(){
         showActivityIndicator()
         let defaultStore: Firestore?
@@ -102,10 +100,6 @@ class ContactDetailsViewController: UIViewController,UITextFieldDelegate {
                 print("Document does not exist")
             }
         }
-        
-        //LtYP6gNerjIeXNxqDqGV
-        //9QqGCrNWEt3tkXKdlcMxClone2
-        
     }
     
     func setUserData(){

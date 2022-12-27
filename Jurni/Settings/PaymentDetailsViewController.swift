@@ -10,15 +10,14 @@ import FirebaseDatabase
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFunctions
-import FirebaseCoreExtension
-import FirebaseMessagingInterop
+
+
 
 class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,
                                         UITableViewDataSource {
 
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var addUpdateView: UIView!
-    
     @IBOutlet weak var addressLine1: UITextField!
     @IBOutlet weak var addressLine2: UITextField!
     @IBOutlet weak var city: UITextField!
@@ -28,26 +27,21 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
     @IBOutlet weak var cvc: UITextField!
     @IBOutlet weak var expiryMonth: UITextField!
     @IBOutlet weak var expiryYear: UITextField!
-    
-    @IBOutlet weak var uiview: UIView!
-    
     @IBOutlet weak var addPaymentView: UIView!
-    
     @IBOutlet weak var updatePaymentMethodButton: UIButton!
     @IBOutlet weak var addPaymentMethodButton: UIButton!
     @IBOutlet weak var paymentPlanLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet weak var paymentPlanTableView: UITableView!
     @IBOutlet weak var upcomingPaymentTableView: UITableView!
+    @IBOutlet weak var paymentPlanTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var upcomingPaymentTableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var totalLabel: UILabel!
     
+    var activityView: UIActivityIndicatorView?
     var paymentMethodsArray = [PaymentMethodBean]()
     var paymentPlanArray = [PaymentPlan]()
     var upcomingPaymentArray = [PaymentPlan]()
-    
-    @IBOutlet weak var paymentPlanTableViewHeight: NSLayoutConstraint!
-    @IBOutlet weak var upcomingPaymentTableViewHeight: NSLayoutConstraint!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +77,6 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
     
 
     func fetchPaymentMethodData(){
-       // showActivityIndicator()
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
         let userId : String = Auth.auth().currentUser!.uid
@@ -94,7 +87,6 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                     print("Error getting documents: \(err)")
                     self.updatePaymentMethodButton.isHidden = true
                 } else {
-                    print(querySnapshot!.documents.count)
                     self.paymentMethodsArray.removeAll()
                     var cardsArray = [String]()
                     for document in querySnapshot!.documents {
@@ -123,6 +115,7 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
     }
     
     func fetchStudentBillDetails(){
+        showActivityIndicator()
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
         let userId : String = Auth.auth().currentUser!.uid
@@ -146,10 +139,19 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                                     let cost = paymentDetailDict["cost"] as! NSNumber
                                     let name = paymentDetailDict["name"] as! String
                                     let stamp = (paymentDetailDict["billingDate"] as! Timestamp)
-                                    let date = stamp.dateValue().toString(dateFormat: "MMM dd,yyyy")
+                                    let date = stamp.dateValue().toString(dateFormat: "MMM dd, yyyy")
+                                    
+                                    let currentDate = Date()
+                                    let jurniDate : Date = stamp.dateValue()
+                                    var isUpcomingJurni: Bool = false
+                                    if jurniDate.compare(currentDate) == .orderedAscending {
+                                        isUpcomingJurni = false
+                                    }else{
+                                        isUpcomingJurni = true
+                                    }
                                 
                                     self.paymentPlanArray.append(PaymentPlan(billId: key, billingDate: date,
-                                                                              cost: "\(cost)", name: name, status: ""))
+                                                                             cost: "\(cost)", name: name, status: "", isUpcoming: isUpcomingJurni, upcomingDate: jurniDate))
                                 }
                             }
                         }
@@ -157,6 +159,9 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                 }
                 if(!self.paymentPlanArray.isEmpty){
                     self.fetchStudentJurnis()
+                }else{
+                    self.paymentPlanTableView.isHidden = true
+                    self.hideActivityIndicator()
                 }
             }
         }
@@ -188,16 +193,40 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                     }
                 }
                 let count = self.paymentPlanArray.count
-                self.paymentPlanTableViewHeight.constant = CGFloat(count * 150)
-                self.paymentPlanTableView.reloadData()
-                
-                for(paymentPlan) in self.paymentPlanArray{
-                    self.upcomingPaymentArray.append(paymentPlan)
+                if(count > 0){
+                    self.paymentPlanTableViewHeight.constant = CGFloat(count * 150)
+                    self.paymentPlanTableView.reloadData()
                 }
                 
+                var totalPayment: Int = 0
+                for(paymentPlan) in self.paymentPlanArray{
+                    switch paymentPlan.status{
+                    case "One-Time":
+                        if(paymentPlan.isUpcoming){
+                            self.upcomingPaymentArray.append(paymentPlan)
+                            totalPayment += Int(paymentPlan.cost)!
+                        }
+                    case "Monlthly Recurring":
+                        let upcomingPaymentPlan:PaymentPlan = paymentPlan.withPaymentPlan(from: paymentPlan)
+                        let nextMonth = Calendar.current.date(byAdding: .month, value: 1, to: upcomingPaymentPlan.upcomingDate)!
+                        let date = nextMonth.toString(dateFormat: "MMMM , yyyy").replacingOccurrences(of: ",", with: "01,")
+                        upcomingPaymentPlan.billingDate = date
+                        totalPayment += Int(upcomingPaymentPlan.cost)!
+                        self.upcomingPaymentArray.append(upcomingPaymentPlan)
+                    default:
+                        print("Default case")
+                    }
+                }
+                
+                self.totalLabel.text = "TOTAL - $\(totalPayment)"
+                
                 let upcomingCount = self.upcomingPaymentArray.count
-                self.upcomingPaymentTableViewHeight.constant = CGFloat(upcomingCount * 140)
-                self.upcomingPaymentTableView.reloadData()
+                if(upcomingCount > 0){
+                    self.upcomingPaymentTableViewHeight.constant = CGFloat(upcomingCount * 140)
+                    self.upcomingPaymentTableView.reloadData()
+                }
+                
+                self.hideActivityIndicator()
             }
         }
     }
@@ -257,6 +286,19 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         return true
     }
     
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == paymentPlanTableView{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentPlanTableViewCell", for: indexPath)
@@ -309,8 +351,10 @@ extension Date
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
     }
-
+    
+    func startOfMonth(date:Date) -> Date {
+            return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: date))!
+        }
+        
 }
-
-
 
