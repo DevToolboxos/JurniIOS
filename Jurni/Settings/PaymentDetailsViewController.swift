@@ -11,11 +11,9 @@ import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFunctions
 
-
-
 class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,
-                                        UITableViewDataSource {
-
+                                    UITableViewDataSource {
+    
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var addUpdateView: UIView!
     @IBOutlet weak var addressLine1: UITextField!
@@ -58,8 +56,7 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         
         let paymentPlanNib = UINib(nibName: "PaymentPlanTableViewCell", bundle: nil)
         paymentPlanTableView.register(paymentPlanNib, forCellReuseIdentifier: "PaymentPlanTableViewCell")
-        paymentPlanTableView.delegate = self
-        paymentPlanTableView.dataSource = self
+        
         
         let upcomingPaymentNib = UINib(nibName: "UpcomingPaymentTableViewCell", bundle: nil)
         upcomingPaymentTableView.register(upcomingPaymentNib, forCellReuseIdentifier: "UpcomingPaymentTableViewCell")
@@ -67,20 +64,16 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         upcomingPaymentTableView.dataSource = self
         
         addPaymentView.isHidden = true
-        
-        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
-        view.addGestureRecognizer(tapGesture)
 
         fetchPaymentMethodData()
         fetchStudentBillDetails()
     }
-    
 
     func fetchPaymentMethodData(){
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
         let userId : String = Auth.auth().currentUser!.uid
-       
+        print(userId)
         defaultStore?.collection("customerBillingDetails").whereField("uid", isEqualTo: userId)
             .getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -175,11 +168,10 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                print("Student")
                 for document in querySnapshot!.documents {
                     for(student) in self.paymentPlanArray{
                         if(student.billId == document.documentID){
-                            print("\(document.documentID) ==> \(document.data())")
+                           // print("\(document.documentID) ==> \(document.data())")
                             let billingDetails : [String : Any] = document.data()["meta"] as! [String : Any]
                             let billingType = billingDetails["billingType"] as! String
                             if(billingType == "Upfront"){
@@ -303,10 +295,11 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         if tableView == paymentPlanTableView{
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentPlanTableViewCell", for: indexPath)
             as! PaymentPlanTableViewCell
-            
+          
             cell.transactionName.text = paymentPlanArray[indexPath.row].name
             cell.status.text = paymentPlanArray[indexPath.row].status
             cell.cost.text = "$\(paymentPlanArray[indexPath.row].cost)"
+        
             if(paymentPlanArray[indexPath.row].status == "Monlthly Recurring"){
                 cell.billingDate.text = "Subscribed \(paymentPlanArray[indexPath.row].billingDate)"
                 cell.action.text = "Cancel jurni"
@@ -315,6 +308,10 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                 cell.action.text = "N/A"
             }
             
+            let cellNameTapped = UITapGestureRecognizer(target: self, action: #selector(nameTapped))
+            cell.action.isUserInteractionEnabled = true
+            cell.action.addGestureRecognizer(cellNameTapped)
+
             return cell
         }else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingPaymentTableViewCell", for: indexPath)
@@ -325,7 +322,16 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
             cell.upcomingBillingDate.text = upcomingPaymentArray[indexPath.row].billingDate
             return cell
         }
-        
+    }
+    
+    @objc func nameTapped(tapGestureRecognizer: UITapGestureRecognizer){
+        let lableView = tapGestureRecognizer.view as! UILabel
+        if(lableView.text == "Cancel jurni"){
+            let view = tapGestureRecognizer.view
+            let indexPath = paymentPlanTableView.indexPathForView(view!)
+            let paymentPlan = paymentPlanArray[indexPath!.row]
+            cancelJurni(jurniId: paymentPlan.billId)
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -336,12 +342,40 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("clicked")
-    }
-    
-}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 
+    func cancelJurni(jurniId:String){
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        let documentRef = defaultStore?.collection("jurnis").document(jurniId)
+        documentRef!.getDocument { (document, error) in
+            let members : [Any] = document?.data()!["members"] as! [Any]
+            let userId : String = Auth.auth().currentUser!.uid
+            let userToDelete = "users/\(userId)"
+            
+            if let toDelete = members.first(where: { (member) -> Bool in
+                        if let object = member as? DocumentReference,
+                           object.path == userToDelete {
+                            return true
+                        } else {
+                            return false
+                        }
+                    }) {
+                
+                documentRef?.updateData([
+                    "members": FieldValue.arrayRemove([toDelete])
+                        ]){ error in
+                            if let error = error {
+                                print("error: \(error)")
+                            } else {
+                                print("successfully deleted")
+                                self.viewDidLoad()
+                            }
+                        }
+                    }
+        }
+    }
+}
 
 extension Date
 {
@@ -351,10 +385,14 @@ extension Date
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: self)
     }
-    
-    func startOfMonth(date:Date) -> Date {
-            return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: date))!
-        }
-        
 }
 
+public extension UITableView {
+
+  func indexPathForView(_ view: UIView) -> IndexPath? {
+    let origin = view.bounds.origin
+    let viewOrigin = self.convert(origin, from: view)
+    let indexPath = self.indexPathForRow(at: viewOrigin)
+    return indexPath
+  }
+}
