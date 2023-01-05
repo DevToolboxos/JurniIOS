@@ -12,14 +12,13 @@ import FirebaseFirestore
 import FirebaseFunctions
 
 class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITableViewDelegate,
-                                    UITableViewDataSource {
+                                    UITableViewDataSource,UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var addUpdateView: UIView!
     @IBOutlet weak var addressLine1: UITextField!
     @IBOutlet weak var addressLine2: UITextField!
     @IBOutlet weak var city: UITextField!
-    @IBOutlet weak var state: UITextField!
     @IBOutlet weak var zipPostal: UITextField!
     @IBOutlet weak var creditCardNumber: UITextField!
     @IBOutlet weak var cvc: UITextField!
@@ -35,11 +34,18 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
     @IBOutlet weak var paymentPlanTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var upcomingPaymentTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var statePickerView: UIPickerView!
+    @IBOutlet weak var doneBtn: UIButton!
     
     var activityView: UIActivityIndicatorView?
     var paymentMethodsArray = [PaymentMethodBean]()
     var paymentPlanArray = [PaymentPlan]()
     var upcomingPaymentArray = [PaymentPlan]()
+    var stateArray = [String]()
+    var stateDict = [String:String]()
+    var selectedState: String = ""
+    var selectedStateId: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,12 +53,16 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         addressLine1.delegate = self
         addressLine2.delegate = self
         city.delegate = self
-        state.delegate = self
         zipPostal.delegate = self
         creditCardNumber.delegate = self
         cvc.delegate = self
         expiryMonth.delegate = self
         expiryYear.delegate = self
+        statePickerView.isHidden = true
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(PaymentDetailsViewController.stateTapFunction))
+        stateLabel.isUserInteractionEnabled = true
+        stateLabel.addGestureRecognizer(tap)
         
         let paymentPlanNib = UINib(nibName: "PaymentPlanTableViewCell", bundle: nil)
         paymentPlanTableView.register(paymentPlanNib, forCellReuseIdentifier: "PaymentPlanTableViewCell")
@@ -62,13 +72,219 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
         upcomingPaymentTableView.register(upcomingPaymentNib, forCellReuseIdentifier: "UpcomingPaymentTableViewCell")
         upcomingPaymentTableView.delegate = self
         upcomingPaymentTableView.dataSource = self
+        statePickerView.delegate = self
+        statePickerView.dataSource = self
         
         addPaymentView.isHidden = true
+        doneBtn.isHidden = true
 
         fetchPaymentMethodData()
         fetchStudentBillDetails()
+        
+        addStates()
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    func addStates(){
+        stateArray.append("Alabama")
+        stateDict["AL"] = "Alabama"
+        
+        stateArray.append("Alaska")
+        stateDict["AK"] = "Alaska"
+        
+        stateArray.append("Arizona")
+        stateDict["AZ"] = "Arizona"
+        
+        stateArray.append("Arkansas")
+        stateDict["AR"] = "Arkansas"
+        
+        stateArray.append("California")
+        stateDict["CA"] = "California"
+        
+        stateArray.append("Colorado")
+        stateDict["CO"] = "Colorado"
+        
+        stateArray.append("Connecticut")
+        stateDict["CT"] = "Connecticut"
+        
+        stateArray.append("Delaware")
+        stateDict["DE"] = "Delaware"
+        
+        stateArray.append("District of Columbia")
+        stateDict["DC"] = "District of Columbia"
+        
+        stateArray.append("Florida")
+        stateDict["FL"] = "Florida"
+        
+        stateArray.append("Georgia")
+        stateDict["GA"] = "Georgia"
+        
+        stateArray.append("Hawaii")
+        stateDict["HI"] = "Hawaii"
+        
+        stateArray.append("Idaho")
+        stateDict["ID"] = "Idaho"
+        
+        stateArray.append("Illinois")
+        stateDict["IL"] = "Illinois"
+        
+        stateArray.append("Indiana")
+        stateDict["IN"] = "Indiana"
+        
+        stateArray.append("Iowa")
+        stateDict["IA"] = "Iowa"
+        
+        stateArray.append("Kansas")
+        stateDict["KS"] = "Kansas"
+        
+        stateArray.append("Kentucky")
+        stateDict["KY"] = "Kentucky"
+        
+        stateArray.append("Louisiana")
+        stateDict["LA"] = "Louisiana"
+        
+        stateArray.append("Maine")
+        stateDict["ME"] = "Maine"
+        
+        stateArray.append("Maryland")
+        stateDict["MD"] = "Maryland"
+        
+        stateArray.append("Massachusetts")
+        stateDict["MA"] = "Massachusetts"
+        
+        stateArray.append("Michigan")
+        stateDict["MI"] = "Michigan"
+        
+        stateArray.append("Minnesota")
+        stateDict["MN"] = "Minnesota"
+        
+        stateArray.append("Mississippi")
+        stateDict["MS"] = "Mississippi"
+        
+        stateArray.append("Missouri")
+        stateDict["MO"] = "Missouri"
+        
+        stateArray.append("Montana")
+        stateDict["MT"] = "Montana"
+        
+        stateArray.append("Nebraska")
+        stateDict["NE"] = "Nebraska"
+        
+        stateArray.append("Nevada")
+        stateDict["NV"] = "Nevada"
+        
+        stateArray.append("New Hampshire")
+        stateDict["NH"] = "New Hampshire"
+        
+        stateArray.append("New Jersey")
+        stateDict["NJ"] = "New Jersey"
+        
+        stateArray.append("New Mexico")
+        stateDict["NM"] = "New Mexico"
+        
+        stateArray.append("New York")
+        stateDict["NY"] = "New York"
+        
+        stateArray.append("North Carolina")
+        stateDict["NC"] = "North Carolina"
+        
+        stateArray.append("North Dakota")
+        stateDict["ND"] = "North Dakota"
+        
+        stateArray.append("Ohio")
+        stateDict["OH"] = "Ohio"
+        
+        stateArray.append("Oklahoma")
+        stateDict["OK"] = "Oklahoma"
+        
+        stateArray.append("Oregon")
+        stateDict["OR"] = "Oregon"
+        
+        stateArray.append("Pennsylvania")
+        stateDict["PA"] = "Pennsylvania"
+     
+        stateArray.append("Puerto Rico")
+        stateDict["PR"] = "Puerto Rico"
+        
+        stateArray.append("Rhode Island")
+        stateDict["RI"] = "Rhode Island"
+        
+        stateArray.append("South Carolina")
+        stateDict["SC"] = "South Carolina"
+        
+        stateArray.append("South Dakota")
+        stateDict["SD"] = "South Dakota"
+        
+        stateArray.append("Tennessee")
+        stateDict["TN"] = "Tennessee"
+        
+        stateArray.append("Texas")
+        stateDict["TX"] = "Texas"
+        
+        stateArray.append("Utah")
+        stateDict["UT"] = "Utah"
+        
+        stateArray.append("Vermont")
+        stateDict["VT"] = "Vermont"
+        
+        stateArray.append("Virginia")
+        stateDict["VA"] = "Virginia"
+        
+        stateArray.append("Virgin Islands")
+        stateDict["VI"] = "Virgin Islands"
+        
+        stateArray.append("Washington")
+        stateDict["WA"] = "Washington"
+        
+        stateArray.append("West Virginia")
+        stateDict["WV"] = "West Virginia"
+        
+        stateArray.append("Wisconsin")
+        stateDict["WI"] = "Wisconsin"
+        
+        stateArray.append("Wyoming")
+        stateDict["WY"] = "Wyoming"
     }
 
+    @IBAction func doneAction(_ sender: Any) {
+        doneBtn.isHidden = true
+        statePickerView.isHidden = true
+        stateLabel.text = selectedState
+    }
+    
+    
+    @objc func stateTapFunction(sender:UITapGestureRecognizer) {
+        doneBtn.isHidden = false
+        statePickerView.isHidden = false
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return stateArray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return stateArray[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        selectedState = self.stateArray[row]
+        
+        for (key,value) in stateDict{
+            if value == stateArray[row]{
+                self.selectedStateId = key
+            }
+        }
+        
+        print(selectedStateId)
+    }
+    
     func fetchPaymentMethodData(){
         let defaultStore: Firestore?
         defaultStore = Firestore.firestore()
@@ -83,21 +299,19 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                     self.paymentMethodsArray.removeAll()
                     var cardsArray = [String]()
                     for document in querySnapshot!.documents {
-                       // if(document.get("status") as! String == "ACTIVE")
-                       // {
-                            // print("\(document.documentID) => \(document.data())")
+                        if(document.get("status") as! String == "ACTIVE")
+                        {
                             let paymentMethod : [String : Any] = document.data()["meta"] as! [String : Any]
-                            
                             let country = paymentMethod["country"] as! String
                             let brand = paymentMethod["brand"] as! String
                             let expMonth = "\(paymentMethod["exp_month"] ?? "")"
                             let expYear = "\(paymentMethod["exp_year"] ?? "")"
                             let lastFour = paymentMethod["last4"] as! String
-                           // if(!cardsArray.contains(lastFour)){
+                            if(!cardsArray.contains(lastFour)){
                                 cardsArray.append(lastFour)
-                                self.paymentMethodsArray.append(PaymentMethodBean(cardBrand: brand, expiryMonth: expMonth, expiryYear: expYear, lastFour: lastFour, country: country))
-                          //  }
-                     //   }
+                                self.paymentMethodsArray.append(PaymentMethodBean(cardBrand: brand, expiryMonth: expMonth, expiryYear: expYear, lastFour: lastFour, country: country, billId: document.documentID))
+                            }
+                        }
                     }
                     
                     if(self.paymentMethodsArray.isEmpty){
@@ -171,7 +385,7 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
                 for document in querySnapshot!.documents {
                     for(student) in self.paymentPlanArray{
                         if(student.billId == document.documentID){
-                           // print("\(document.documentID) ==> \(document.data())")
+                          //  print("\(document.documentID) ==> \(document.data())")
                             let billingDetails : [String : Any] = document.data()["meta"] as! [String : Any]
                             let billingType = billingDetails["billingType"] as! String
                             if(billingType == "Upfront"){
@@ -231,29 +445,155 @@ class PaymentDetailsViewController: UIViewController,UITextFieldDelegate,UITable
     }
     
     @IBAction func saveAction(_ sender: Any) {
-        //https://us-central1-jurni-dev.cloudfunctions.net/registerCustomer
         
-        let userDocumentId : String = Auth.auth().currentUser!.uid
-        let communityId: String = UserDefaults.standard.string(forKey: Constants.COMMUNITY_ID) ?? ""
-        let customerArray : [String: Any] = [
-            "uid": userDocumentId,
-            "communityId": communityId,
-            "address_line_one":"pune",
-            "address_line_two":"pune",
-            "city":"pune",
-            "stateCode":"CO",
-            "zip_code":"423323",
-            "card_no":"1232123234322233",
-            "exp_month":"03",
-            "exp_year":"2027",
-            "cvc":"000"
-        ]
-        lazy var functions = Functions.functions()
-        functions.httpsCallable("https://us-central1-jurni-dev.cloudfunctions.net/registerCustomer/registerBilling").call(customerArray){result, error in
-            print(result)
-            print(error)
-            
+        let addressLineOne : String = addressLine1.text ?? ""
+        let addressLineTwo : String = addressLine2.text ?? ""
+        let city : String = city.text ?? ""
+        let state : String =  selectedState
+        let zip : String = zipPostal.text ?? ""
+        let creditCard : Int = Int(creditCardNumber.text!) ?? 0
+        let cvc : Int = Int(cvc.text!) ?? 0
+        let expiryMonth : Int = Int(expiryMonth.text!) ?? 0
+        let expiryYear : Int = Int(expiryYear.text!) ?? 0
+        
+        if(addressLineOne.isEmpty == true){
+            showAlert(message: "Address Line 1 cannot be empty")
+            return
         }
+        
+        if(city.isEmpty == true){
+            showAlert(message: "City cannot be empty")
+            return
+        }
+        
+        if(state.isEmpty == true){
+            showAlert(message: "State cannot be empty")
+            return
+        }
+        
+        if(zip.isEmpty == true){
+            showAlert(message: "Zip cannot be empty")
+            return
+        }
+        
+        if(creditCard == 0){
+            showAlert(message: "Credit Card cannot be empty")
+            return
+        }
+        
+        if(cvc == 0){
+            showAlert(message: "CVC cannot be empty")
+            return
+        }
+        
+        if(expiryYear == 0){
+            showAlert(message: "Expiry Year cannot be empty")
+            return
+        }
+        
+        if(expiryMonth == 0){
+            showAlert(message: "Expiry Month cannot be empty")
+            return
+        }
+        
+        if(expiryMonth > 12){
+            showAlert(message: "Please enter valid Expiry Month")
+            return
+        }
+        
+        if(expiryYear > 2040 && expiryYear < 2023){
+            showAlert(message: "Please enter valid Expiry Year")
+            return
+        }
+        
+        if(cvc < 100 || cvc > 9999){
+            showAlert(message: "Please try to fit CVC within 4 characters")
+            return
+        }
+        
+        if(expiryMonth > 99){
+            showAlert(message: "Please try to fit Expiry Month within 2 characters")
+            return
+        }
+        
+        if(expiryYear > 9999){
+            showAlert(message: "Please try to fit Expiry Year within 4 characters")
+            return
+        }
+        showActivityIndicator()
+        let userId : String = Auth.auth().currentUser!.uid
+        let communityId: String = UserDefaults.standard.string(forKey: Constants.COMMUNITY_ID) ?? ""
+        let phoneNumber = UserDefaults.standard.string(forKey: Constants.PHONE_NUMBER) ?? "7676767676"
+        let customerArray : [String: Any] = [
+            "uid": userId,
+            "communityId": communityId,
+            "address_line_one":addressLineOne,
+            "address_line_two":addressLineTwo,
+            "city":city,
+            "stateCode":selectedStateId,
+            "zipCode":zip,
+            "card_no":creditCard,
+            "exp_month":expiryMonth,
+            "exp_year":expiryYear,
+            "cvc":cvc,
+            "phone":phoneNumber,
+            "studentOnboarding":false
+        ]
+        
+        saveRequest(customerDict: customerArray)
+        
+    }
+    
+    
+    func saveRequest(customerDict: [String:Any]){
+        let json: [String: Any] = ["data": ["customerInfo": customerDict]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "https://us-central1-jurni-dev.cloudfunctions.net/registerCustomer/registerBilling")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator()
+                    self.showAlert(message: "Error while Payment Setup")
+                }
+                
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator()
+                    self.showAlert(message: "Payment Setup Success")
+                    self.addressLine1.text = ""
+                    self.addressLine2.text = ""
+                    self.city.text = ""
+                    self.zipPostal.text = ""
+                    self.creditCardNumber.text = ""
+                    self.cvc.text = ""
+                    self.expiryMonth.text = ""
+                    self.expiryYear.text = ""
+                    
+                    self.addPaymentMethodButton.isHidden = false
+                    self.updatePaymentMethodButton.isHidden = false
+                    self.addUpdateView.isHidden = false
+                    self.addPaymentView.isHidden = true
+                }
+            }
+        }
+
+        task.resume()
+    }
+    
+    func showAlert(message: String){
+        let alert = UIAlertController(title: "Alert", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func updatePaymentAction(_ sender: Any) {

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseFunctions
 
 class UpdatePaymentPopUpViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -38,6 +40,9 @@ class UpdatePaymentPopUpViewController: UIViewController, UITableViewDataSource,
         cell.lastFour.text = paymentMethod.last4
         cell.action.text = "Active"
         
+        cell.removeBtn.addTarget(self, action: #selector(removeButtonAction(sender:)), for: .touchUpInside)
+        cell.removeBtn.tag = indexPath.row
+        
         return cell
     }
 
@@ -45,5 +50,31 @@ class UpdatePaymentPopUpViewController: UIViewController, UITableViewDataSource,
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc func removeButtonAction(sender: UIButton){
+        let removeIndex = sender.tag
+        let payment = updatePaymentArray[removeIndex]
+        
+        lazy var functions = Functions.functions()
+        functions.httpsCallable("registerCustomer/removePaymentMethod").call(["billId": payment.billId]){result, error in
+            
+            if(error == nil){
+                print(result?.data)
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
     
+    func customerBilling(){
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        defaultStore?.collection("customerBillingDetails").getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+    }
 }

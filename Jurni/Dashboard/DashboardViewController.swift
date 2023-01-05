@@ -21,6 +21,7 @@ class DashboardViewController: UIViewController{
     private var sideMenuShadowView: UIView!
     private var draggingIsEnabled: Bool = false
     private var panBaseLocation: CGFloat = 0.0
+    var activityView: UIActivityIndicatorView?
     
     @IBAction open func revealSideMenu() {
         self.sideMenuState(expanded: self.isExpanded ? false : true)
@@ -28,8 +29,83 @@ class DashboardViewController: UIViewController{
     
     override func viewDidLoad() {
         
-      //  self.view.backgroundColor = #colorLiteral(red: 0, green: 0.375862439, blue: 1, alpha: 1)
+        fetchUserData()
+    }
+    
+    func fetchUserData(){
+        showActivityIndicator()
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        let userId : String = Auth.auth().currentUser!.uid
+        let docRef = defaultStore?.collection("users").document(userId)
+        
+        docRef!.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let firstName = document.get("firstName") as? String
+                if(firstName != nil){
+                    UserDefaults.standard.set(firstName, forKey: Constants.FIRST_NAME)
+                }
+                
+                let profilePic = document.get("avatar") as? String
+                if(profilePic != nil){
+                    UserDefaults.standard.set(profilePic, forKey: Constants.PROFILE_PIC)
+                }
+                
+                let communityId = document.get("activeCommunityId")
+                if(communityId != nil){
+                    self.checkStudentLoggedIn(communityId: communityId as! String)
+                }else{
+                    self.setSideMenu()
+                    self.hideActivityIndicator()
+                }
+            }
+        }
+    }
+    
+    func checkStudentLoggedIn(communityId: String){
+        let defaultStore: Firestore?
+        defaultStore = Firestore.firestore()
+        let userId : String = Auth.auth().currentUser!.uid
+        
+        if(!communityId.isEmpty){
+            let docRef = defaultStore!.collection("communities").document(communityId)
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let roles = document.get("roles") as! [String:String]
+                    for (key,value) in roles{
+                        if(key == userId){
+                            if(!(value == "student")){
+                                self.showLogoutAlert(message: "App is only for Students")
+                            }
+                        }
+                    }
+                    
+                    let community = document.get("name") as? String
+                    if(community != nil){
+                        UserDefaults.standard.set(community, forKey: Constants.COMMUNITY_NAME)
+                    }
+                    
+                    let communityDescription = document.get("description") as? String
+                    if(communityDescription != nil){
+                        UserDefaults.standard.set(communityDescription, forKey: Constants.COMMUNITY_DESCRIPTION)
+                    }
+                    let meta: [String:Any] = (document.get("meta") as?  [String:Any])!
+                    let logo = meta["logo"]
+                    if(logo != nil){
+                        UserDefaults.standard.set(logo, forKey: Constants.COMMUNITY_LOGO)
+                    }
+                    
+                    self.setSideMenu()
+                    self.hideActivityIndicator()
+                }
+            }
+        }
+    }
+    
+    func setSideMenu(){
+        //  self.view.backgroundColor = #colorLiteral(red: 0, green: 0.375862439, blue: 1, alpha: 1)
         // Side Menu Gestures
+          
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture))
         panGestureRecognizer.delegate = self
         view.addGestureRecognizer(panGestureRecognizer)
@@ -68,9 +144,10 @@ class DashboardViewController: UIViewController{
         ])
         
         showViewController(viewController: UINavigationController.self, storyboardId: "HomeNavID")
-        fetchUserData()
     }
 }
+
+
 
 extension DashboardViewController: SideMenuViewControllerDelegate {
     func selectedCell(_ row: Int) {
@@ -280,47 +357,6 @@ extension DashboardViewController: UIGestureRecognizerDelegate {
         }
     }
     
-    func fetchUserData(){
-        let defaultStore: Firestore?
-        defaultStore = Firestore.firestore()
-        let userId : String = Auth.auth().currentUser!.uid
-        let docRef = defaultStore?.collection("users").document(userId)
-        
-        docRef!.getDocument { (document, error) in
-            if let document = document, document.exists {
-                
-                let communityId = document.get("activeCommunityId")
-                if(communityId != nil){
-                    self.checkStudentLoggedIn(communityId: communityId as! String)
-                }
-            }
-        }
-    }
-    
-    func checkStudentLoggedIn(communityId: String){
-        let defaultStore: Firestore?
-        defaultStore = Firestore.firestore()
-        let userId : String = Auth.auth().currentUser!.uid
-        
-        if(!communityId.isEmpty){
-            print("userid \(userId)")
-            let docRef = defaultStore!.collection("communities").document(communityId)
-            docRef.getDocument { (document, error) in
-                if let document = document, document.exists {
-                    let roles = document.get("roles") as! [String:String]
-                    for (key,value) in roles{
-                        if(key == userId){
-                            print("found value \(value)")
-                            if(!(value == "student")){
-                                self.showLogoutAlert(message: "App is only for Students")
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     func showLogoutAlert(message: String){
         let alert = UIAlertController(title: "Logout", message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: handler))
@@ -335,5 +371,18 @@ extension DashboardViewController: UIGestureRecognizerDelegate {
             }
         try! Auth.auth().signOut()
         self.performSegue(withIdentifier: "logoutSegue", sender: nil)
+    }
+    
+    func showActivityIndicator() {
+        activityView = UIActivityIndicatorView(style: .large)
+        activityView?.center = self.view.center
+        self.view.addSubview(activityView!)
+        activityView?.startAnimating()
+    }
+    
+    func hideActivityIndicator(){
+        if (activityView != nil){
+            activityView?.stopAnimating()
+        }
     }
 }

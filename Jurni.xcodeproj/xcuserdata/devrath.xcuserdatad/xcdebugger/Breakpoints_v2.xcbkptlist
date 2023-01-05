@@ -18,5 +18,117 @@
             endingLineNumber = "33">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B3363C3F-E733-426E-A46C-31C67F119E5E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "callFunction(url:withObject:timeout:context:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B3363C3F-E733-426E-A46C-31C67F119E5E - 91f9abdd52175ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FirebaseFunctions.Functions.callFunction(url: Foundation.URL, withObject: Swift.Optional&lt;Any&gt;, timeout: Swift.Double, context: FirebaseFunctions.FunctionsContext, completion: (Swift.Result&lt;FirebaseFunctions.HTTPSCallableResult, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Jurni"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devrath/Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "366"
+                  endingLineNumber = "366"
+                  offsetFromSymbolStart = "3188">
+               </Location>
+               <Location
+                  uuid = "B3363C3F-E733-426E-A46C-31C67F119E5E - 8a111c3e0ce6fe93"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in FirebaseFunctions.Functions.callFunction(url: Foundation.URL, withObject: Swift.Optional&lt;Any&gt;, timeout: Swift.Double, context: FirebaseFunctions.FunctionsContext, completion: (Swift.Result&lt;FirebaseFunctions.HTTPSCallableResult, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Jurni"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devrath/Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "368"
+                  endingLineNumber = "368"
+                  offsetFromSymbolStart = "236">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74D3C13E-A18D-43DE-84CB-BE1AF0EB5C42"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "383"
+            endingLineNumber = "383"
+            landmarkName = "callFunction(url:withObject:timeout:context:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8ED64B3C-1A55-433A-A998-187EE73E4C37"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "381"
+            endingLineNumber = "381"
+            landmarkName = "callFunction(url:withObject:timeout:context:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EF8787BF-45C1-40DD-961E-78ABF045BB2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "callFunction(url:withObject:timeout:context:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "78A41882-F20E-4972-AE59-B749C6F26917"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Library/Developer/Xcode/DerivedData/Jurni-blrtfhkdhefcmhgwazxidgpttcex/SourcePackages/checkouts/firebase-ios-sdk/FirebaseFunctions/Sources/Functions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
+            landmarkName = "callFunction(url:withObject:timeout:context:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

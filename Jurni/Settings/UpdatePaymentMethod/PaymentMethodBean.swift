@@ -14,15 +14,17 @@ class PaymentMethodBean: NSObject {
     var expYear : String
     var last4 : String
     var country : String
+    var billId: String
     
     init(cardBrand : String, expiryMonth : String,
          expiryYear : String, lastFour : String,
-         country : String) {
+         country : String, billId: String) {
         self.brand = cardBrand
         self.expMonth = expiryMonth
         self.expYear = expiryYear
         self.last4 = lastFour
         self.country = country
+        self.billId = billId
         
         super.init()
     }

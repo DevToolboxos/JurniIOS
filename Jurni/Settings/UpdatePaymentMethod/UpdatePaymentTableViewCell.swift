@@ -12,7 +12,6 @@ class UpdatePaymentTableViewCell: UITableViewCell {
     @IBOutlet weak var cardType: UILabel!
     @IBOutlet weak var lastFour: UILabel!
     @IBOutlet weak var action: UILabel!
-    
     @IBOutlet weak var removeBtn: UIButton!
     
     @IBOutlet weak var removeAction: UIButton!

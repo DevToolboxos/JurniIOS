@@ -18,4 +18,7 @@ class Constants{
     static let JOB_TITLE = "job_title"
     static let EMAIL = "email"
     static let COMMUNITY_ID = "community_id"
+    static let COMMUNITY_NAME = "community_name"
+    static let COMMUNITY_DESCRIPTION = "community_description"
+    static let COMMUNITY_LOGO = "community_logo"
 }
